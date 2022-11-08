@@ -2,12 +2,11 @@
 
 # Runs the TicTacToe Game
 class TicTacToe
-  LINES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6]]
+  LINES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6]].freeze
 
   def initialize
     @squares = Array.new(9, ' ')
-    @player1 = Player.new(self, 'X')
-    @player2 = Player.new(self, 'O')
+    @current_player = 'X'
   end
 
   private
@@ -20,7 +19,10 @@ class TicTacToe
 
   def player_input(mark)
     puts "Place your #{mark}. The numbers on the num pad represent the squares"
-    @squares[gets.chomp.to_i - 1] = mark.to_s
+    input = (gets.chomp.to_i - 1)
+    unless square_full?(input)
+      @squares[input] = mark.to_s
+    end
     print_board
   end
 
@@ -35,39 +37,34 @@ class TicTacToe
   end
 
   def switch_player(player)
-    case player 
-    when 'X' then = "O"
-    when 'O' then = 'X'
+    case player
+    when 'X' then @current_player = 'O'
+    when 'O' then @current_player = 'X'
     end
+  end
+
+  def square_full?(square)
+    @squares[square] != ' '
   end
 
   public
 
   def play_game
-    player = 'X'
     loop do
-      puts "The player is #{player}"
-      player_input(player)
-      if won?(player)
-        puts "#{player} has won"
+      puts "The player is #{@current_player}"
+      player_input(@current_player)
+      if won?(@current_player)
+        puts "#{@current_player} has won"
         break
       elsif board_full?
         puts 'Its a tie'
         break
       end
-      switch_player(player)
-
+      switch_player(@current_player)
     end
   end
 end
 
-class Player
-  def initialize(game, marker)
-    @game = game
-    @marker = marker
-  end
-  attr_reader :marker
-end
 
 game = TicTacToe.new
 game.play_game
