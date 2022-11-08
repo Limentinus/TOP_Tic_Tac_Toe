@@ -4,11 +4,10 @@
 class TicTacToe
   LINES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6]]
 
-  def initialize(player1, player2)
+  def initialize
     @squares = Array.new(9, ' ')
-    @game_over = false
-    @player1 = Player.new(self, "X")
-    @player2 = Player.new(self, "O")
+    @player1 = Player.new(self, 'X')
+    @player2 = Player.new(self, 'O')
   end
 
   private
@@ -20,7 +19,7 @@ class TicTacToe
   end
 
   def player_input(mark)
-    puts "Put your #{mark} on one of the squares. Input a number between 1 and 9. The numbers on the num pad represent the squares"
+    puts "Place your #{mark}. The numbers on the num pad represent the squares"
     @squares[gets.chomp.to_i - 1] = mark.to_s
     print_board
   end
@@ -35,26 +34,28 @@ class TicTacToe
     @squares.none?(' ')
   end
 
+  def switch_player(player)
+    case player 
+    when 'X' then = "O"
+    when 'O' then = 'X'
+    end
+  end
+
   public
 
   def play_game
     player = 'X'
-    while @game_over == false
+    loop do
       puts "The player is #{player}"
       player_input(player)
       if won?(player)
         puts "#{player} has won"
-        @game_over = true
+        break
       elsif board_full?
         puts 'Its a tie'
-        @game_over = true
+        break
       end
-      
-      if player == 'X'
-        player = 'O'
-      elsif player == 'O'
-        player = 'X'
-      end
+      switch_player(player)
 
     end
   end
@@ -67,7 +68,6 @@ class Player
   end
   attr_reader :marker
 end
-
 
 game = TicTacToe.new
 game.play_game
