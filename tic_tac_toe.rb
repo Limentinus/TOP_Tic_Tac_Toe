@@ -9,7 +9,7 @@ class TicTacToe
     @current_player = 'X'
   end
 
-  private
+  
 
   def print_board
     puts "#{@squares[6]} | #{@squares[7]} | #{@squares[8]}
