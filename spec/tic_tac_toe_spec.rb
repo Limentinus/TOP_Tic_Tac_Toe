@@ -1,8 +1,22 @@
 require_relative '../tic_tac_toe'
 
 describe TicTacToe do
+
+  describe '#player_input' do
+    subject(:input_game) { described_class.new }
+
+    context "When the player inputs the square" do
+      it 'updates the @squares array with the correct mark' do
+        allow(input_game).to receive(:gets).and_return('5')
+        input_game.player_input('O')
+        squares = input_game.instance_variable_get(:@squares)
+        expect(squares[4]).to eq('O')
+
+      end
+    end
+  end
+
   describe '#won?' do
-    
     context 'When three squares in a line are the same mark' do
       subject(:first_row_game) {described_class.new(['X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' '])}
       
