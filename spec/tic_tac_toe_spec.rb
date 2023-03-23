@@ -16,6 +16,15 @@ describe TicTacToe do
     end
   end
 
+  describe '#square_full?' do
+    context 'When square is full' do
+      subject(:square_game) { described_class.new(['X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '])}
+      it 'returns true' do
+        expect(square_game.square_full?(0)).to eq(true)
+      end
+    end
+  end
+
   describe '#won?' do
     context 'When three squares in a line are the same mark' do
       subject(:first_row_game) {described_class.new(['X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' '])}
@@ -61,5 +70,7 @@ describe TicTacToe do
       end
     end
   end
+
+
 
 end
