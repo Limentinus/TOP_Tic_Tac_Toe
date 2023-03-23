@@ -13,6 +13,7 @@ class TicTacToe
     loop do
       puts "The player is #{@current_player}"
       player_input(@current_player)
+      print_board
       if won?(@current_player)
         puts "#{@current_player} has won"
         break
@@ -24,21 +25,20 @@ class TicTacToe
     end
   end
   
-
-  def print_board
-    puts "#{@squares[6]} | #{@squares[7]} | #{@squares[8]}
-        \n#{@squares[3]} | #{@squares[4]} | #{@squares[5]}
-        \n#{@squares[0]} | #{@squares[1]} | #{@squares[2]}"
-  end
-
   def player_input(mark)
     puts "Place your #{mark}. The numbers on the num pad represent the squares"
     input = (gets.chomp.to_i - 1)
     unless square_full?(input)
       @squares[input] = mark.to_s
     end
-    print_board
   end
+
+  def print_board
+    puts "#{@squares[6]} | #{@squares[7]} | #{@squares[8]}
+        \n#{@squares[3]} | #{@squares[4]} | #{@squares[5]}
+        \n#{@squares[0]} | #{@squares[1]} | #{@squares[2]}"
+  end
+  
 
   def won?(mark)
     LINES.any? do |line|
@@ -65,5 +65,5 @@ class TicTacToe
 end
 
 
-# game = TicTacToe.new
-# game.play_game
+game = TicTacToe.new
+game.play_game
