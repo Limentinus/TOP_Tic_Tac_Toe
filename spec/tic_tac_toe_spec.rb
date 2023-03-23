@@ -41,4 +41,13 @@ describe TicTacToe do
       end
     end
   end
+
+  describe '#board_full?' do
+    context 'When the board is full' do
+      subject(:full_board) { described_class.new(Array.new(9, 'X'))}
+      it 'returns true' do
+        expect(full_board.board_full?).to eq(true)
+      end
+    end
+  end
 end
