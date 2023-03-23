@@ -50,4 +50,16 @@ describe TicTacToe do
       end
     end
   end
+
+  describe '#switch_player' do
+    context "When the player is 'X'" do
+      subject(:switch_game) { described_class.new }
+      it "switches the player to 'O'" do
+        switch_game.switch_player('X')
+        current_player = switch_game.instance_variable_get(:@current_player)
+        expect(current_player).to eq('O')
+      end
+    end
+  end
+
 end
